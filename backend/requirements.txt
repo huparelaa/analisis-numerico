@@ -1,2 +1,3 @@
-Flask
-matlabengine
+Flask == 3.0.0 
+matlabengine == 23.2.1
+numpy == 1.26.1
