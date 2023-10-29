@@ -1,14 +1,8 @@
 from flask import Blueprint, request, jsonify
 from matlab_functions import cap1
-api = Blueprint('api', __name__)
+api_non_linear = Blueprint('non-linear', __name__)
 
-
-@api.route('/hello', methods=['GET'])
-def hello_world():
-    return jsonify({"message": "Hello, World!"})
-
-
-@api.route('/biseccion', methods=['POST'])
+@api_non_linear.route('/biseccion', methods=['POST'])
 def biseccion():
     data = request.get_json()
     f_str = data.get('func')
@@ -19,7 +13,7 @@ def biseccion():
     result = cap1.calcular_biseccion(f_str, a, b, niter, tol)
     return jsonify(result)
 
-@api.route('/newton', methods=['POST'])
+@api_non_linear.route('/newton', methods=['POST'])
 def newton():
     data = request.get_json()
     f_str = data.get('func')
@@ -29,7 +23,7 @@ def newton():
     result = cap1.calcular_newton(f_str, x0, niter, tol)
     return jsonify(result)
 
-@api.route('/punto_fijo', methods=['POST'])
+@api_non_linear.route('/punto_fijo', methods=['POST'])
 def punto_fijo():
     data = request.get_json()
     f_str = data.get('func')
@@ -40,7 +34,7 @@ def punto_fijo():
     result = cap1.calcular_punto_fijo(f_str, g_str, x0, tol, niter)
     return jsonify(result)
 
-@api.route('/regla_falsa', methods=['POST'])
+@api_non_linear.route('/regla_falsa', methods=['POST'])
 def regla_falsa():
     data = request.get_json()
     f_str = data.get('func')
@@ -51,7 +45,7 @@ def regla_falsa():
     result = cap1.calcular_regla_falsa(f_str, a, b, niter, tol)
     return jsonify(result)
 
-@api.route('/secante', methods=['POST'])
+@api_non_linear.route('/secante', methods=['POST'])
 def secante():
     data = request.get_json()
     f_str = data.get('func')
@@ -62,7 +56,7 @@ def secante():
     result = cap1.calcular_secante(f_str, x0, x1, niter, tol)
     return jsonify(result)
 
-@api.route('/raices_multiples', methods=['POST'])
+@api_non_linear.route('/raices_multiples', methods=['POST'])
 def raices_multiples():
     data = request.get_json()
     f_str = data.get('func')
