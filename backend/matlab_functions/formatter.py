@@ -111,15 +111,17 @@ def punto_fijo_formatter(c, xn, fm, gm, err, mes, mes_err):
 
     return response
 
+
 def regla_falsa_formatter(iter, ai, xm, bi, fm, err, mes, mes_err):
     response = {}
     if len(mes_err) == 0:
-        if type(ai) != float: 
+        if type(ai) != float:
             ai_array = np.array(ai._data).tolist()  # Convertir xl a una lista
             xm_array = np.array(xm._data).tolist()  # Convertir xr a una lista
             bi_array = np.array(bi._data).tolist()  # Convertir xu a una lista
             fm_array = np.array(fm._data).tolist()
-            err_array = np.array(err._data).tolist()  # Convertir er a una lista
+            # Convertir er a una lista
+            err_array = np.array(err._data).tolist()
 
             response = {
                 "Iter": iter,
@@ -149,19 +151,21 @@ def regla_falsa_formatter(iter, ai, xm, bi, fm, err, mes, mes_err):
 
     return response
 
+
 def secante_formatter(n, xn, fm, err, mes, mes_err):
     response = {}
     if len(mes_err) == 0:
-        if type(xn) != float: 
+        if type(xn) != float:
             xn_array = np.array(xn._data).tolist()  # Convertir xl a una lista
             fm_array = np.array(fm._data).tolist()  # Convertir xr a una lista
-            err_array = np.array(err._data).tolist()  # Convertir er a una lista
+            # Convertir er a una lista
+            err_array = np.array(err._data).tolist()
             response = {
                 "Iter": n,
                 "xn": xn_array,
                 "fm": fm_array,
                 "err_array": err_array,
-                "mes": mes, 
+                "mes": mes,
                 "mes_err": mes_err,
             }
         else:
@@ -179,16 +183,20 @@ def secante_formatter(n, xn, fm, err, mes, mes_err):
         }
     return response
 
+
 def raices_multiples_formatter(n, xn, fm, dfm, d2fm, error, mes, mes_err):
     response = {}
 
     if len(mes_err) == 0:
-        if type(xn) != float: 
+        if type(xn) != float:
             xn_array = np.array(xn._data).tolist()  # Convertir xl a una lista
             fm_array = np.array(fm._data).tolist()  # Convertir xr a una lista
-            dfm_array = np.array(dfm._data).tolist()  # Convertir xl a una lista
-            d2fm_array = np.array(d2fm._data).tolist()  # Convertir xr a una lista
-            err_array = np.array(error._data).tolist()  # Convertir er a una lista
+            # Convertir xl a una lista
+            dfm_array = np.array(dfm._data).tolist()
+            # Convertir xr a una lista
+            d2fm_array = np.array(d2fm._data).tolist()
+            # Convertir er a una lista
+            err_array = np.array(error._data).tolist()
             response = {
                 "Iter": n,
                 "xn": xn_array,
@@ -214,4 +222,34 @@ def raices_multiples_formatter(n, xn, fm, dfm, d2fm, error, mes, mes_err):
         response = {
             "mes_err": mes_err
         }
+    return response
+
+
+def metodos_iterativos_formatter(iter, x, mt, mc, radioEspectral, error, mes, mes_err):
+    response = {}
+    if len(mes_err) == 0:
+        x_array = np.array(x._data).tolist()
+        mt_array = np.array(mt._data).tolist()  # Convertir xr a una lista
+        mc_array = np.array(mc._data).tolist()  # Convertir xu a una lista
+        err_array = np.array(error._data).tolist()  # Convertir er a una lista
+
+        x_reshape = np.reshape(x_array, (-1, len(mc_array[0]))).tolist()
+        mt_reshape = np.array(mt_array).reshape(
+            len(mc_array[0]), len(mc_array[0]), order='F').tolist()
+        print("mt_reshape", mt_reshape)
+        response = {
+            "iter": iter,
+            "x": x_reshape,
+            "mt": mt_reshape,
+            "mc": mc_array,
+            "radioEspectral": radioEspectral,
+            "error": err_array,
+            "mes": mes,
+            "mes_err": mes_err,
+        }
+    else:
+        response = {
+            "mes_err": mes_err
+        }
+
     return response

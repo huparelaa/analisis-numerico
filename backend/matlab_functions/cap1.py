@@ -1,6 +1,5 @@
 import matlab.engine
 import os
-import numpy as np
 from utils import eval_function
 from matlab_functions import formatter
 matlab_script_path = os.path.join(os.path.dirname(__file__), 'cap1')
