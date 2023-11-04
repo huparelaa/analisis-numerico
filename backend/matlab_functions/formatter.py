@@ -253,3 +253,85 @@ def metodos_iterativos_formatter(iter, x, mt, mc, radioEspectral, error, mes, me
         }
 
     return response
+
+
+def vandermonde_formatter():
+    coeficientes = np.array(coeficientes).tolist()
+
+    matriz = np.array(matriz).tolist()
+    coeficientes.reverse()
+
+    polinomio = polinomio_creator(coeficientes)
+    polinomio = polinomio.replace('[', '(')
+    polinomio = polinomio.replace(']', ')')
+    response = {
+        "coeficientes": coeficientes,
+        "matriz": matriz,
+        "polinomio": polinomio
+    }
+    return response
+
+
+def polinomio_creator(coeficientes):
+    polinomio = f"{coeficientes[0]} + "
+    for i in range(1, len(coeficientes)):
+        polinomio += f"{coeficientes[i]} x^{i}"
+        if (i < len(coeficientes)-1):
+            polinomio += " + "
+
+    return polinomio
+
+
+def newton_interpol_formatter(coeficientes, matriz):
+
+    coeficientes = np.array(coeficientes).tolist()
+    tabla = np.array(matriz).tolist()
+
+    coeficientes[0].reverse()
+
+    polinomio = polinomio_creator(coeficientes[0])
+    polinomio = polinomio.removesuffix(" + ")
+
+    response = {
+        "coeficientes": coeficientes,
+        "tabla": tabla,
+        "polinomio": polinomio
+    }
+
+    return response
+
+def lagrange_formatter(coeficientes):
+    coeficientes = np.array(coeficientes).tolist()
+    coeficientes[0].reverse()
+
+    polinomio = polinomio_creator(coeficientes[0])
+    polinomio = polinomio.removesuffix(" + ")
+
+    response = {
+        "coeficientes": coeficientes,
+        "polinomio": polinomio
+    }
+
+    return response
+
+def spline_formatter(tabla, tipo):
+    tabla = np.array(tabla).tolist()
+    trazadores = tabla.copy()
+
+    # Could be improved ----------------
+    if tipo == 1:
+        for i in range(len(tabla)):
+            trazadores[i] = f"{tabla[i][0]}x + {tabla[i][1]}"     
+    elif tipo == 2:
+        for i in range(len(tabla)):
+            trazadores[i] = f"{tabla[i][0]}x^2 + {tabla[i][1]}x + {tabla[i][2]}"
+    elif tipo == 3:
+        for i in range(len(tabla)):
+            trazadores[i] = f"{tabla[i][0]}x^3 + {tabla[i][1]}x^2 + {tabla[i][2]}x + {tabla[i][3]}"
+
+    response = {
+        "tabla": tabla,
+        "trazadores": trazadores
+    }   
+
+    return response
