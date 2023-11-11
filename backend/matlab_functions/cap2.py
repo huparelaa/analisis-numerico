@@ -1,11 +1,8 @@
-import matlab.engine
-import os
 from utils import eval_function
 from matlab_functions import formatter
 import numpy as np
-matlab_script_path = os.path.join(os.path.dirname(__file__), 'cap2')
-eng = matlab.engine.start_matlab()
-eng.addpath(matlab_script_path)
+from matlab_functions.global_matlab_eng import global_eng as eng
+
 
 def calcular_metodos_iterativos(A, b, x0, norm, niter, tol, metodo, w=1):
     b = [np.array(b).flatten().tolist()]

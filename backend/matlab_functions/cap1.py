@@ -1,10 +1,7 @@
 import matlab.engine
-import os
 from utils import eval_function
 from matlab_functions import formatter
-matlab_script_path = os.path.join(os.path.dirname(__file__), 'cap1')
-eng = matlab.engine.start_matlab()
-eng.addpath(matlab_script_path)
+from matlab_functions.global_matlab_eng import global_eng as eng
 
 
 def calcular_biseccion(f_str, a, b, niter, tol):

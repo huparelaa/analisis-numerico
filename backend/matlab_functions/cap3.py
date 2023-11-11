@@ -1,12 +1,8 @@
-import matlab.engine
-import os
+
 from utils import eval_function
 from matlab_functions import formatter
 import numpy as np
-matlab_script_path = os.path.join(os.path.dirname(__file__), 'cap3')
-eng = matlab.engine.start_matlab()
-eng.addpath(matlab_script_path)
-
+from matlab_functions.global_matlab_eng import global_eng as eng
 
 def calcular_vandermonde(x, y):
     x = np.array(x)
@@ -20,7 +16,7 @@ def calcular_newton(x, y):
     x = np.array(x)
     y = np.array(y)
 
-    coef_polinomio,matriz = eng.newton(x,y,nargout = 2)
+    coef_polinomio,matriz = eng.newtonint(x,y,nargout = 2)
     response = formatter.newton_interpol_formatter(coef_polinomio, matriz)
     return response
 
