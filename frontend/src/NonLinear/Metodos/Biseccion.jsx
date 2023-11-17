@@ -14,6 +14,8 @@ import { format, parse } from "mathjs";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navbar } from "../../Home/Header";
+import axios from "axios";
+import {url} from '../../config';
 
 const Biseccion = ({ name }) => {
     const [functionText, setFunctionText] = useState("log(sin(x)^2 + 1)-(1/2)");
@@ -37,40 +39,39 @@ const Biseccion = ({ name }) => {
             setIter(event.target.maxCount.value)
             setError(null);
             const data = {
-            "func": "'@(x)" + event.target.functionText.value + "'",
+            "func": event.target.functionText.value,
             "a": parseFloat(event.target.lowValue.value),
             "b": parseFloat(event.target.highValue.value),
             "niter": parseInt(event.target.maxCount.value),
             "tol": parseFloat(event.target.tol.value)
             }
-            console.log("data", data);
-            const res = await fetch("http://127.0.0.1:8000/api/non_linear_eq/calcular_biseccion/", 
-                {
-                    method: "POST", 
-                    mode: "cors", 
-                    cache: "no-cache",
-                    credentials: "same-origin", 
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    redirect: "follow", 
-                    referrerPolicy: "no-referrer", 
-                    body: JSON.stringify(data),
+            try {
+                const response = await axios.post(
+                    `${url}/non-linear/biseccion`,
+                    data,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    }
+                );
+
+                const responseData = response.data;
+                setData(responseData); 
+                console.log(Object.entries(responseData));
+
+                if (responseData["mes_err"].length == 0){                  
+                    setConclusion(responseData["mes"]); 
+                } else { 
+                    setError(responseData["mes_err"]);
                 }
-            ).then(response => response.json()).then(
-                data => {
-                    setData(data); 
-                    console.log(Object.entries(data))
-                    if (data["mes_err"].length == 0){                  
-                        setConclusion(data["mes"]) 
-                    } else { 
-                        setError(data["mes_err"])
-                    }   
-                })
+            } catch (e) {
+                setError(e.toString());
+            }
         } catch (e) {
-            setError(e + "");
+            setError(e.toString());
         }
-    };
+        };
     return (
     <>
         <Navbar/>
