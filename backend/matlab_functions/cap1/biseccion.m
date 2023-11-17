@@ -40,8 +40,12 @@ function [iter, an, xn, bn, fn, E, mes, err] = biseccion(f, a, b, max_iter, tol)
         err = 'b no está definido en la función';
         return
     end
-    if a >= b
+    if a > b
         err = 'a tiene que ser menor que b';
+        return
+    end
+    if a == b
+        err = 'a no puede ser igual a b';
         return
     end
     if tol < 0
