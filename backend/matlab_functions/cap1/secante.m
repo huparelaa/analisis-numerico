@@ -1,4 +1,4 @@
-function [iter,xn,fn, E, mes, err] = secante(x0, x1, tol, max_iter)
+function [iter,xn,fn, E, mes, err] = secante(f, x0, x1, tol, max_iter)
     format long
     syms x;
     iter = 1;
@@ -7,8 +7,8 @@ function [iter,xn,fn, E, mes, err] = secante(x0, x1, tol, max_iter)
     E = 0;
     mes = "";
     err = "";
-    %f_sym = sym(f);
-    f_sym =(log(x+100))*((x^2)+((3/2)*9*x)+((9*(9^2))/16));
+    f_sym = sym(f);
+    %f_sym =(log(x+100))*((x^2)+((3/2)*9*x)+((9*(9^2))/16));
     f0 = eval(subs(f_sym, x0));
     f1 = eval(subs(f_sym, x1));
     x2 = x1 - ((f1 * (x1 - x0)) / (f1 - f0));
