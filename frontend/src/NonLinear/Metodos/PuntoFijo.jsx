@@ -28,9 +28,10 @@ const PuntoFijo = ({ name }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [conclusion, setConclusion] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setData(null);
     try {
       parse(event.target.functionTextF.value);
       parse(event.target.functionTextG.value);
@@ -50,6 +51,7 @@ const PuntoFijo = ({ name }) => {
       };
 
       try {
+        setLoading(true);
         const response = await axios.post(
           `${url}/non-linear/punto_fijo`,
           data,
@@ -74,6 +76,7 @@ const PuntoFijo = ({ name }) => {
     } catch (e) {
       setError(e.toString());
     }
+    setLoading(false);
   };
   return (
     <>
@@ -196,6 +199,11 @@ const PuntoFijo = ({ name }) => {
                     <th>E</th>
                   </tr>
                 </thead>
+                {loading && (
+                  <tr>
+                    <td colSpan="5">Cargando...</td>
+                  </tr>
+                )}
                 <tbody>
                   {data &&
                     Array.from({ length: Object.entries(data)[0][1] }).map(
@@ -273,7 +281,6 @@ const PuntoFijo = ({ name }) => {
                                 </td>
                               )
                             )}
-                          
                         </tr>
                       )
                     )}
