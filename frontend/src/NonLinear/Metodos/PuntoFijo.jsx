@@ -32,6 +32,8 @@ const PuntoFijo = ({ name }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setData(null);
+    setError(null);
+    setConclusion("");
     try {
       parse(event.target.functionTextF.value);
       parse(event.target.functionTextG.value);

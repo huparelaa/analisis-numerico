@@ -25,7 +25,7 @@ Ahora simplemente debes ejecutar el siguiente comando:
 ```bash
 $ python run.py
 ```
-Y listo, ya tienes el backend corriendo en tu computador, si accedes a la url [http://localhost:5000/api/hello](http://localhost:5000/api/hello) desde una herramienta como postman o simplemente desde tu navegador, deberías ver un mensaje de bienvenida.
+Y listo, ya tienes el backend corriendo en tu computador.
 
 ## Frontend
 
@@ -56,11 +56,11 @@ Y listo, ya tienes el frontend corriendo en tu computador, si accedes a la url [
 
 ✅ Newton-Raphson
 
-❌ Raices múltiples
+✅ Raices múltiples
 
-❌ Secante
+✅ Secante
 
-❌ Regla falsa
+✅ Regla falsa
 
 ### Métodos lineares:
 ❌ Métodos iterativos

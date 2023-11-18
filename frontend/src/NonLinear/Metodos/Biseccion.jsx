@@ -32,6 +32,8 @@ const Biseccion = ({ name }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setData(null);
+    setError(null);
+    setConclusion("");
     try {
       parse(event.target.functionText.value);
       setFunctionText(event.target.functionText.value);
