@@ -232,8 +232,8 @@ const Biseccion = ({ name }) => {
                             data.fm.map((columna, columnIndex) => (
                               <td key={columnIndex}>
                                 {format(columna[index], {
-                                  notation: "exponential",
-                                  precision: 4,
+                                  notation: "fixed",
+                                  precision: 10,
                                 })}
                               </td>
                             ))}
@@ -243,7 +243,7 @@ const Biseccion = ({ name }) => {
                               <td key={columnIndex}>
                                 {format(columna[index], {
                                   notation: "exponential",
-                                  precision: 2,
+                                  precision: 4,
                                 })}
                               </td>
                             ))}
