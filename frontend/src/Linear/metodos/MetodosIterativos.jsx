@@ -55,6 +55,7 @@ const MetodosIterativos = ({ name }) => {
   const [results, setResults] = useState(undefined);
   const [displayHelp, setDisplayHelp] = useState(false);
   const [conclusion, setConclusion] = useState("");
+  const [errorType, setErrorType] = useState(1);
   const [methodState, setMethodState] = useState({
     matrixA: "inputSize",
     B: "input",
@@ -67,6 +68,7 @@ const MetodosIterativos = ({ name }) => {
     setnormValue(parseInt(event.target.normValue.value));
     setWValue(parseFloat(event.target.wValue && event.target.wValue.value));
     setNMax(parseInt(event.target.NMax.value));
+    setErrorType(parseInt(event.target.errorType.value));
     setParamSet(true);
   };
   const fuctionFetch = async () => {
@@ -79,6 +81,7 @@ const MetodosIterativos = ({ name }) => {
       niter: NMax,
       l: method,
       w: wValue,
+      tipErr: errorType,
     };
     console.log(data);
     try {
@@ -101,6 +104,7 @@ const MetodosIterativos = ({ name }) => {
     } catch (error) {
       setError(error.message);
     }
+    setLoading(false);
   };
   useEffect(() => {
     setError(null);
@@ -133,8 +137,9 @@ const MetodosIterativos = ({ name }) => {
     normValue,
     tol,
     wValue,
+    errorType,
   ]);
-  console.log(results)
+  console.log(results);
   return (
     <>
       <Navbar />
@@ -187,7 +192,14 @@ const MetodosIterativos = ({ name }) => {
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
-                  <option value="inf">inf</option>
+                  <option value={4}>inf</option>
+                </select>
+              </label>
+              <label>
+                Tipo de error {"  "}
+                <select name="errorType" defaultValue={1}>
+                  <option value={1}>Absoluto</option>
+                  <option value={0}>Relativo</option>
                 </select>
               </label>
               <label>
@@ -211,6 +223,9 @@ const MetodosIterativos = ({ name }) => {
           <Column>
             <ul>
               <li>Tolerancia : {tol}</li>
+              <li>
+                Tipo de error: {errorType === 1 ? "Absoluto" : "Relativo"}
+              </li>
               <li>Norma : {normValue}</li>
               <li>Iteraciones : {NMax}</li>
               <li>
@@ -327,6 +342,7 @@ const MetodosIterativos = ({ name }) => {
           )
         )}
       </Inputs>
+      {loading && <p>Calculando...</p>}
       {results && !error ? (
         <Results>
           <BlockMath math={"T = " + renderLatexMatrix(results["mt"], 10)} />
@@ -376,7 +392,7 @@ const MetodosIterativos = ({ name }) => {
                               <BlockMath
                                 math={renderLatexMatrix(
                                   results["x"][index].map((valor) => [valor]),
-                                  6
+                                  10
                                 )}
                               />
                             )}
