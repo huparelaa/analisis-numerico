@@ -1,4 +1,4 @@
-function [iter, x, T, C, radioEspectral, E, mes, err] = metodos_iterativos(A, b, x0, tol, normV, niter, l, w)
+function [iter, x, T, C, radioEspectral, E, mes, err] = metodos_iterativos(A, b, x0, tol, normV, niter, l, w, tipErr)
     % Función que implementa el método de Gauss-Seidel para resolver el sistema
     % de ecuaciones lineales Ax = b.
     % Parámetros de entrada:
@@ -13,6 +13,7 @@ function [iter, x, T, C, radioEspectral, E, mes, err] = metodos_iterativos(A, b,
     % Parámetros de salida:
     %    x: vector columna que contiene la solución aproximada del sistema
     %   iter: número de iteraciones realizadas hasta alcanzar la convergencia
+    format long;
     bt = b;
     x0t = x0;
     iter = 1;
@@ -63,7 +64,13 @@ function [iter, x, T, C, radioEspectral, E, mes, err] = metodos_iterativos(A, b,
     % Iterar hasta alcanzar la convergencia o hasta alcanzar el número máximo de iteraciones permitidas
     while error > tol && iter < niter
         x(:, iter + 1) = ((T * xAnt) + C);
-        E(iter + 1) = norm(xAnt - x(:, iter+1), normV);
+        
+        if tipErr == 0 % Cifras significativas
+            E(iter + 1) = norm((x(:, iter+1)-xAnt)./x(:, iter+1), normV);
+        end
+        if tipErr == 1 % Error absoluto
+            E(iter + 1) = norm(x(:, iter+1) - xAnt, normV);
+        end
         error = E(iter+1);
         xAnt = x(:, iter + 1);
         iter = iter + 1;

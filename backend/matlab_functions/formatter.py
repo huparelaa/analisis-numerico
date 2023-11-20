@@ -236,7 +236,6 @@ def metodos_iterativos_formatter(iter, x, mt, mc, radioEspectral, error, mes, me
         x_reshape = np.reshape(x_array, (-1, len(mc_array[0]))).tolist()
         mt_reshape = np.array(mt_array).reshape(
             len(mc_array[0]), len(mc_array[0]), order='F').tolist()
-        print("mt_reshape", mt_reshape)
         response = {
             "iter": iter,
             "x": x_reshape,

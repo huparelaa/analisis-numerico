@@ -63,7 +63,7 @@ Y listo, ya tienes el frontend corriendo en tu computador, si accedes a la url [
 ✅ Regla falsa
 
 ### Métodos lineares:
-❌ Métodos iterativos
+🚧 Métodos iterativos (En progreso, backend listo)
 
 ### Métodos de interpolación:
 ❌ Vandermonde

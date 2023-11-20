@@ -13,5 +13,6 @@ def iterativos():
     norm = data.get('norm')
     l = data.get('l') # metodo a usar
     w = data.get('w') # parametro de relajacion
-    result = cap2.calcular_metodos_iterativos(A, b, x0, norm, niter, tol, l, w)
+    tipErr = data.get('tipErr')
+    result = cap2.calcular_metodos_iterativos(A, b, x0, norm, niter, tol, l, w, tipErr)
     return jsonify(result)
