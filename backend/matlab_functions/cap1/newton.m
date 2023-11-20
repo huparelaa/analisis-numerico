@@ -8,8 +8,7 @@ function [n,xn,fm,dfm,E, mes, err] = newton(f, x0,tol,max_iter)
     E = 0;
     mes = "";
     err = "";
-    %f=sin(2*x)-(x/(3))^3+0.1;
-    f = pi^(-x)*(-1+x)+x^(2/3)-19;
+
     f_sym = sym(f);
     df=diff(f_sym);
     c=0;
