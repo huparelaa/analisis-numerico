@@ -226,14 +226,14 @@ const MetodosIterativos = ({ name }) => {
               <li>
                 Tipo de error: {errorType === 1 ? "Absoluto" : "Relativo"}
               </li>
-              <li>Norma : {normValue}</li>
+              <li>Norma : {normValue === 4 ? "Inf":normValue}</li>
               <li>Iteraciones : {NMax}</li>
               <li>
                 Métodos :{" "}
                 {method === 1
                   ? "Jacobi"
                   : method === 2
-                  ? "Gauss-Seider"
+                  ? "Gauss-Seidel"
                   : "SOR"}
               </li>
               {method === 3 && (
