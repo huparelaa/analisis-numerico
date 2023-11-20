@@ -26,6 +26,10 @@ function [iter, x, T, C, radioEspectral, E, mes, err] = metodos_iterativos(A, b,
     mes = "";
     err = "";
 
+    if normV == 4
+        normV = inf;
+    end
+
     if niter < 0
         err = "Las iteraciones son < 0";
         return
