@@ -55,7 +55,7 @@ function [iter, an, xn, bn, fn, E, mes, err] = biseccion(f, a, b, max_iter, tol,
     %METODOS DE SOLUCION
     iter = 1;
     m = (a + b) / 2;
-    numberError = m;
+    numberError = abs(m);
     fa = eval(subs(f_sym, a));
     fb = eval(subs(f_sym, b)); 
     fm = eval(subs(f_sym, m)); 
@@ -82,12 +82,12 @@ function [iter, an, xn, bn, fn, E, mes, err] = biseccion(f, a, b, max_iter, tol,
             a = m;
             fa = fm;
         end
-        m = abs((a + b) / 2);
+        m = (a + b) / 2;
         fm = eval(subs(f_sym, m));
         if tipErr == 1 % Error absoluto
-            numberError = (b - a) / 2;
+            numberError = abs((b - a) / 2);
         elseif tipErr == 0 % Cifras significativas
-            numberError = ((b-a)/2)/m;
+            numberError = abs(((b-a)/2))/abs(m);
         end 
         iter = iter + 1;
     end

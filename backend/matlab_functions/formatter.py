@@ -24,11 +24,11 @@ def biseccion_formatter(iter, ai, xm, bi, fm, err, mes, mes_err):
         else:
             response = {
                 "Iter": iter,
-                "a": ai_array,
-                "xm": xm_array,
-                "b": bi_array,
-                "fm": fm_array,
-                "err": err_array,
+                "a": ai,
+                "xm": xm,
+                "b": bi,
+                "fm": fm,
+                "err": err,
                 "mes": mes,
                 "mes_err": mes_err,
             }
