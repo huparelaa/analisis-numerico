@@ -1,4 +1,4 @@
-function [iter, an, xn, bn, fn, E, mes, err] = rf(f,a, b, max_iter, tol)
+function [iter, an, xn, bn, fn, E, mes, err] = rf(f,a, b, max_iter, tol, tipErr)
     format long
     syms x;
     f_sym = sym(f);

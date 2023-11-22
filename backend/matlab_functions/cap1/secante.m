@@ -1,4 +1,4 @@
-function [iter,xn,fn, E, mes, err] = secante(f, x0, x1, tol, max_iter)
+function [iter,xn,fn, E, mes, err] = secante(f, x0, x1, tol, max_iter, tipErr)
     format long
     syms x;
     iter = 1;

@@ -1,4 +1,4 @@
-function [iter, an, xn, bn, fn, E, mes, err] = biseccion(f, a, b, max_iter, tol)
+function [iter, an, xn, bn, fn, E, mes, err] = biseccion(f, a, b, max_iter, tol, tipErr)
     format long
     syms x;
     f_sym = sym(f);
@@ -83,8 +83,12 @@ function [iter, an, xn, bn, fn, E, mes, err] = biseccion(f, a, b, max_iter, tol)
             fa = fm;
         end
         m = abs((a + b) / 2);
-        fm = eval(subs(f_sym, m)); 
-        numberError = (b - a) / 2;
+        fm = eval(subs(f_sym, m));
+        if tipErr == 1 % Error absoluto
+            numberError = (b - a) / 2;
+        elseif tipErr == 0 % Cifras significativas
+            numberError = ((b-a)/2)/m;
+        end 
         iter = iter + 1;
     end
     an(iter) = a;

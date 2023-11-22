@@ -29,6 +29,7 @@ const PuntoFijo = ({ name }) => {
   const [error, setError] = useState(null);
   const [conclusion, setConclusion] = useState("");
   const [loading, setLoading] = useState(false);
+  const [tipErr, setTipErr] = useState(1);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setData(null);
@@ -42,6 +43,7 @@ const PuntoFijo = ({ name }) => {
       setInitialValue(event.target.initialValue.value);
       setTol(event.target.tol.value);
       setIter(event.target.maxCount.value);
+      setTipErr(event.target.errorType.value);
       setError(null);
 
       const data = {
@@ -167,6 +169,13 @@ const PuntoFijo = ({ name }) => {
                   height: "35px",
                 }}
               />
+            </label>
+            <label style={{display:"flex", flexDirection:"column"}}>
+              Tipo de error
+              <select name="errorType" id="errorType" defaultValue={tipErr}>
+                <option value={1}>Absoluto</option>
+                <option value={0}>Relativo</option>
+              </select>
             </label>
             <label>
               Iteraciones (máximo 100)

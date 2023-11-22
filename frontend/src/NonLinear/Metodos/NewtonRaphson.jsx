@@ -26,6 +26,7 @@ const NewtonRaphson = ({ name }) => {
   const [error, setError] = useState(null);
   const [conclusion, setConclusion] = useState("");
   const [loading, setLoading] = useState(false);
+  const [tipErr, setTipErr] = useState(1);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setData(null);
@@ -44,6 +45,7 @@ const NewtonRaphson = ({ name }) => {
         x0: parseFloat(event.target.initialValueX0.value),
         niter: parseInt(event.target.maxCount.value),
         tol: parseFloat(event.target.tol.value),
+        tipErr: parseInt(event.target.errorType.value),
       };
       try {
         setLoading(true);
@@ -146,6 +148,13 @@ const NewtonRaphson = ({ name }) => {
                   height: "35px",
                 }}
               />
+            </label>
+            <label style={{display:"flex", flexDirection:"column"}}>
+              Tipo de error
+              <select name="errorType" id="errorType" defaultValue={tipErr}>
+                <option value={1}>Absoluto</option>
+                <option value={0}>Relativo</option>
+              </select>
             </label>
             <label>
               Iteraciones (maximo 100)

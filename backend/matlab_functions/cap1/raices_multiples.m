@@ -1,4 +1,4 @@
-function [c,xn,fm,dfm,d2fm,E, mes, err] = raices_multiples(f, x0,tol,max_iter)
+function [c,xn,fm,dfm,d2fm,E, mes, err] = raices_multiples(f, x0,tol,max_iter,tipErr)
     format long
     syms x;
     xn = 0;

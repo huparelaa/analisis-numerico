@@ -1,4 +1,4 @@
-function [n,xn,fm,dfm,E, mes, err] = newton(f, x0,tol,max_iter)
+function [n,xn,fm,dfm,E, mes, err] = newton(f, x0,tol,max_iter,tipErr)
     format long
     syms x;
     n = 1;

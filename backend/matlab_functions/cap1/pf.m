@@ -1,5 +1,5 @@
 %Punto fijo: se ingresa el valor inicial (x0), la tolerancia del error (Tol) y el màximo nùmero de iteraciones (niter) 
-function [c , xn, fm, gm, E, mes, err] = pf(f, g, x0, tol, max_iter)
+function [c , xn, fm, gm, E, mes, err] = pf(f, g, x0, tol, max_iter, tipErr)
     syms x
     xn = 0;
     fm = 0;
