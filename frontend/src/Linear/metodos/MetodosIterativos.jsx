@@ -428,20 +428,20 @@ const MetodosIterativos = ({ name }) => {
       </Question>
       {displayHelp && (
         <React.Fragment>
-          <p>In sor if w = 1 we is like Gauss-Seidel method.</p>
+          <p>En SOR si w = 1 es como el método de Gauss-Seidel.</p>
           <p>
-            In sor if 0 minus w minus 1 we got sub-relaxation methods (used in
-            non-convergent Gauss-Seidel systems).
+            En SOR, si 0 menos w menos 1 tenemos métodos de sub-relajación (usados en
+            sistemas Gauss-Seidel no convergentes).
           </p>
           <p>
-            In sor if 1 minus w minus 2 we got over-relaxation methods (used to
-            "increase" the speed of some methods).
+            En SOR,Y si 1 menos w menos 2, tenemos métodos de relajación excesiva (usados para
+            "aumentar" la velocidad de algunos métodos).
           </p>
-          <p>The initial vector isn´t too important.</p>
-          <p>the determinant of the matrix cannot be 0.</p>
-          <p>The matrix cannot have a 0 on the main diagonal</p>
-          <p>The number of iterations mus be positive.</p>
-          <p>The tolerance must be positive..</p>
+          <p>El vector inicial no es demasiado importante.</p>
+          <p>el determinante de la matriz no puede ser 0.</p>
+          <p>La matriz no puede tener un 0 en la diagonal principal</p>
+          <p>El número de iteraciones debe ser positivo.</p>
+          <p>La tolerancia debe ser positiva..</p>
         </React.Fragment>
       )}
     </>

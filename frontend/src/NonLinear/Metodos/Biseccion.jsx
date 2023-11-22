@@ -280,14 +280,14 @@ const Biseccion = ({ name }) => {
       {displayHelp && (
         <React.Fragment>
           <p>
-            The function must be continuous and differentiable, in addition the
-            specific function evaluated at the interval ends must have a
-            different sign.
-          </p>
-          <p>The value of A must be minor than b.</p>
-          <p>Tolerance must have a positive value.</p>
-          <p>Both values, a and b must exist in the function.</p>
-          <p>The iteration number must be positive.</p>
+              La función debe ser continua y diferenciable, además
+              La función específica evaluada en los extremos del intervalo debe tener un
+              signo diferente.
+            </p>
+            <p>El valor de A debe ser menor que b.</p>
+            <p>La tolerancia debe tener un valor positivo.</p>
+            <p>Ambos valores, a y b, deben existir en la función.</p>
+            <p>El número de iteración debe ser positivo.</p>
         </React.Fragment>
       )}
     </>

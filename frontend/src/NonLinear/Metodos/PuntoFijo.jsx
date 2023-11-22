@@ -314,11 +314,11 @@ const PuntoFijo = ({ name }) => {
       </Question>
       {displayHelp && (
         <React.Fragment>
-          <p>The functions must be continuous and differentiable.</p>
-          <p>Be sure that the function have a root.</p>
-          <p>The initial value is important for the method.</p>
-          <p>Tolerance must have a positive value.</p>
-          <p>The iteration number must be positive.</p>
+          <p>Las funciones deben ser continuas y diferenciables.</p>
+          <p>Asegúrese de que la función tenga una raíz.</p>
+          <p>El valor inicial es importante para el método.</p>
+          <p>La tolerancia debe tener un valor positivo.</p>
+          <p>El número de iteración debe ser positivo.</p>
         </React.Fragment>
       )}
     </>
