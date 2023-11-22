@@ -12,11 +12,11 @@ function HomeInterpolation(){
         <MethodsContainer>
             <Navbar/>
             <div className="texto">
-            <Title>Methods</Title>
+            <Title>Métodos</Title>
             <MainContainer>
                 <ThemeTitle>
                     <FontAwesomeIcon icon={"otter"} />
-                    Solving equations of one variable
+                    Resolviendo ecuaciones de una variable
                 </ThemeTitle>
                 <Theme>
                     {methods

@@ -46,7 +46,7 @@ export const methods = [
     index: 8,
     id: "newton-interpolation",
     theme: "interpolation",
-    name: "Newton (Divided difference method)",
+    name: "Newton (Método de diferencias divididas)",
   },
   {
     index: 9,
