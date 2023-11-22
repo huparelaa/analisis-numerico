@@ -35,7 +35,7 @@ def calcular_spline(x, y, tipo):
     if tipo == 1:
         tabla = eng.spline_lineal(x,y)
     elif tipo == 2:
-        tabla = eng.spline_cuadratico(x,y)
+        tabla = eng.spline_cuadrado(x,y)
     elif tipo == 3:
         tabla = eng.spline_cubico(x,y)
 

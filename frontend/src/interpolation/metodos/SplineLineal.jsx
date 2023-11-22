@@ -25,6 +25,7 @@ import { Navbar } from "../../Home/Header";
 import { column, format, parse } from "mathjs";
 import { url } from "../../config";
 import axios from "axios";
+import { getDomainString } from "../../utils/splineArrayConversor";
 
 const SplineLineal = ({ name }) => {
   const [points, setPoints] = useState({
@@ -51,7 +52,7 @@ const SplineLineal = ({ name }) => {
   const [y, setY] = useState("[4,2,6,8]");
   const [tabla, setTabla] = useState([[]]);
   const [traz, setTraz] = useState([[]]);
-  const [trazModificado, setTrazModificado] = useState([[]]);
+  const [trazModificado, setTrazModificado] = useState([]);
   const [xPoints, setXPoints] = useState([]);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -198,7 +199,9 @@ const SplineLineal = ({ name }) => {
                   "/graf-spline?trazadores=" +
                   trazModificado +
                   "&xPoints=" +
-                  xPoints
+                  xPoints +
+                  "&domain=" +
+                  getDomainString(x, y)
                 }
                 target="_blank"
                 rel="noopener noreferrer"
@@ -211,7 +214,6 @@ const SplineLineal = ({ name }) => {
       ) : (
         <Results>
           <Error>{error}</Error>
-          
         </Results>
       )}
     </>

@@ -72,8 +72,8 @@ Y listo, ya tienes el frontend corriendo en tu computador, si accedes a la url [
 
 ✅ Newton
 
-🚧 Spline lineal (In progress)
+✅ Spline lineal (In progress)
 
-❌ Spline cuadrático
+✅ Spline cuadrático
 
-❌ Spline cúbico
+✅ Spline cúbico

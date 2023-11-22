@@ -1,4 +1,5 @@
 function [Tabla] = SplineLineal(x,y)
+    format long;
     n=length(x);
     A=zeros((1+1)*(n-1));
     b=zeros((1+1)*(n-1),1);

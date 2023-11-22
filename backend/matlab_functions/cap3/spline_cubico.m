@@ -1,4 +1,5 @@
 function [Tabla] = SplineCubico(x,y)
+    format long;
     n=length(x);
     A=zeros((3+1)*(n-1));
     b=zeros((3+1)*(n-1),1);

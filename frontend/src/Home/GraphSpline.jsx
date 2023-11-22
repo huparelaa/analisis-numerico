@@ -8,7 +8,6 @@ import styled from "styled-components";
 import functionPlot from "function-plot";
 import { methods } from "../data/methods";
 import { Navbar } from "../Home/Header";
-import { i } from "mathjs";
 window.d3 = d3;
 
 function GraphSpline() {
@@ -16,39 +15,27 @@ function GraphSpline() {
   const size = useWindowDimensions();
   const node = useRef(null);
 
+  const [functionText, setFunctionText] = useState(
+    params.has("trazadores")
+      ? params.get("trazadores").toString().split(",")
+      : ["x^2"]
+  );
+
+  const [xPoints, setXPoints] = useState(
+    params.has("xPoints")
+      ? params.get("xPoints").toString().split(",")
+      : [-7, 7]
+  );
+
   const [domain, setDomain] = useState(
     params.has("domain")
       ? params.get("domain").toString().split(",")
       : [-7, 7, undefined, undefined]
   );
-
-  const [xPoints, setXPoints] = useState(
-    params.has("xPoints") ? params.get("xPoints") : [-1, 1]
-  );
-
-  const [trazadores, setTrazadores] = useState(
-    params.has("trazadores")
-      ? params.get("trazadores").toString().split(",")
-      : "x^2"
-  );
-
-  const [prebuiltData, setPrebuiltData] = useState([{ fn: "x^2" }]);
-
-  if (trazadores.length > 0) {
-    const newData = [];
-    for (let i = 0; i < xPoints.length - 1; i++) {
-      const dataFunction = {
-        fn: trazadores[i],
-        color: "#358180",
-        sampler: "builtIn",
-        graphType: "polyline",
-        range: [xPoints[i], xPoints[i + 1]],
-      };
-      newData.push(dataFunction);
-    }
-    console.log(newData)
-    setPrebuiltData(newData); // Actualizar el estado una vez con el nuevo array completo
-  }
+  const [xAxis1Domain, setXAxis1Domain] = useState(domain[0]);
+  const [xAxis2Domain, setXAxis2Domain] = useState(domain[1]);
+  const [yAxis1Domain, setYAxis1Domain] = useState(domain[2]);
+  const [yAxis2Domain, setYAxis2Domain] = useState(domain[3]);
 
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -58,10 +45,29 @@ function GraphSpline() {
       try {
         functionPlot({
           target: node.current,
+          xAxis: {
+            domain:
+              xAxis1Domain && xAxis2Domain
+                ? [xAxis1Domain, xAxis2Domain]
+                : undefined,
+            label: "x - axis",
+          },
+          yAxis: {
+            domain:
+              yAxis1Domain && yAxis2Domain
+                ? [yAxis1Domain, yAxis2Domain]
+                : undefined,
+            label: "y - axis",
+          },
           width: size.width > 800 ? 700 : size.width - 80,
           height: 480,
-          data: prebuiltData,
-          grid: false,
+          data: functionText.map((trazador, index) => ({
+            fn: trazador,
+            graphType: "polyline",
+            color: "#358180",
+            sampler: "builtIn",
+            range: [xPoints[index], xPoints[index + 1]],
+          })),
         });
       } catch (err) {
         setErrorMessage(err.toString());
@@ -69,30 +75,33 @@ function GraphSpline() {
     }
   }, [
     node,
+    functionText,
     size.width,
-    prebuiltData,
+    xAxis1Domain,
+    xAxis2Domain,
+    yAxis1Domain,
+    yAxis2Domain,
+    xPoints,
   ]);
 
   return (
     <div>
       <Navbar />
-      <div className="texto">
-        <MediaContainer width={"1050px"}>
-          <Eval>
-            <p>
-              <strong>Graph</strong>
-            </p>
-            {!errorMessage ? (
-              <GraphChart ref={node} />
-            ) : (
-              <ErrorMessage>
-                <FontAwesomeIcon icon={"exclamation-circle"} />
-                {errorMessage}
-              </ErrorMessage>
-            )}
-          </Eval>
-        </MediaContainer>
-      </div>
+      <MediaContainer width={"1050px"}>
+        <Eval>
+          <p>
+            <strong>Graph</strong>
+          </p>
+          {!errorMessage ? (
+            <GraphChart ref={node} />
+          ) : (
+            <ErrorMessage>
+              <FontAwesomeIcon icon={"exclamation-circle"} />
+              {errorMessage}
+            </ErrorMessage>
+          )}
+        </Eval>
+      </MediaContainer>
     </div>
   );
 }

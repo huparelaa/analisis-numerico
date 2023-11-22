@@ -1,4 +1,5 @@
 function [Tabla] = SplineCuadrado(x,y)
+    format long;
     n=length(x);
     A=zeros((2+1)*(n-1));
     b=zeros((2+1)*(n-1),1);
