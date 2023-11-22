@@ -56,6 +56,10 @@ const SplineLineal = ({ name }) => {
   const [xPoints, setXPoints] = useState([]);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!x || !y) {
+      window.alert("No pueden haber campos vacíos");
+      return;
+    }
     try {
       setX(event.target.x.value);
       setY(event.target.y.value);

@@ -53,8 +53,10 @@ const Newton = ({ name }) => {
   const [domain, setDomain] = useState([]);
 
   const handleSubmit = async (event) => {
-    console.log("x: ", event.target.x.value);
-    console.log("y: ", event.target.y.value);
+    if (!x || !y) {
+      window.alert("No pueden haber campos vacíos");
+      return;
+    }
     event.preventDefault();
     try {
       setX(event.target.x.value);
@@ -170,7 +172,6 @@ const Newton = ({ name }) => {
       ) : (
         <Results>
           <Error>{error}</Error>
-          
         </Results>
       )}
     </>

@@ -53,8 +53,10 @@ const Vandermonde = ({ name }) => {
   const [domain, setDomain] = useState([]);
 
   const handleSubmit = async (event) => {
-    console.log("x: ", event.target.x.value);
-    console.log("y: ", event.target.y.value);
+    if (!x || !y) {
+      window.alert("No pueden haber campos vacíos");
+      return;
+    }
     event.preventDefault();
     try {
       setX(event.target.x.value);
@@ -63,7 +65,7 @@ const Vandermonde = ({ name }) => {
         x: JSON.parse(event.target.x.value),
         y: JSON.parse(event.target.y.value),
       };
-      console.log("data", data);
+
       const xmin = Math.min.apply(null, data["x"]);
       const xmax = Math.max.apply(null, data["x"]);
       const ymin = Math.min.apply(null, data["y"]);

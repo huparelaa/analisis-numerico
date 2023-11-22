@@ -31,6 +31,28 @@ const RegulaFalsi = ({ name }) => {
   const [tipErr, setTipErr] = useState(1);
 
   const handleSubmit = async (event) => {
+    // verificar que no haya campos vacíos
+    if (
+      !event.target.functionText.value ||
+      !event.target.lowValue.value ||
+      !event.target.highValue.value ||
+      !event.target.tol.value ||
+      !event.target.maxCount.value
+    ) {
+      window.alert("No pueden haber campos vacíos");
+      return;
+    }
+
+    if (parseInt(event.target.maxCount.value) > 100) {
+      window.alert("El número de iteraciones debe ser menor a 100");
+      return;
+    }
+
+    if (parseFloat(event.target.tol.value) < 0) {
+      window.alert("La tolerancia debe ser positiva");
+      return;
+    }
+    
     event.preventDefault();
     setData(null);
     setError(null);

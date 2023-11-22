@@ -56,6 +56,10 @@ const SplineCubico = ({ name }) => {
   const [xPoints, setXPoints] = useState([]);
 
   const handleSubmit = async (event) => {
+    if (!x || !y) {
+      window.alert("No pueden haber campos vacíos");
+      return;
+    }
     setXPoints(JSON.parse(event.target.x.value));
     event.preventDefault();
     try {

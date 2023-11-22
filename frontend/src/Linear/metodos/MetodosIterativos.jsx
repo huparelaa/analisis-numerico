@@ -64,6 +64,50 @@ const MetodosIterativos = ({ name }) => {
   const [loading, setLoading] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Verificar que los datos sean correctos
+    if (!event.target.tol.value) {
+      window.alert("No pueden haber campos vacíos");
+      return;
+    }
+    if (parseInt(event.target.NMax.value) <= 0) {
+      window.alert("El número de iteraciones debe ser positivo");
+      return;
+    }
+    if (parseFloat(event.target.tol.value) <= 0) {
+      window.alert("La tolerancia debe ser positiva");
+      return;
+    }
+    if (parseInt(event.target.normValue.value) <= 0) {
+      window.alert("La norma debe ser positiva");
+      return;
+    }
+    if (parseInt(event.target.errorType.value) < 0) {
+      window.alert("El tipo de error debe ser positivo");
+      return;
+    }
+    if (parseInt(event.target.errorType.value) > 1) {
+      window.alert("El tipo de error debe ser menor a 2");
+      return;
+    }
+    if (parseInt(event.target.NMax.value) > 100) {
+      window.alert("El número de iteraciones debe ser menor a 100");
+      return;
+    }
+    if (parseInt(event.target.NMax.value) <= 0) {
+      window.alert("El número de iteraciones debe ser positivo");
+      return;
+    }
+    if (parseInt(event.target.normValue.value) <= 0) {
+      window.alert("La norma debe ser positiva");
+      return;
+    }
+    if (parseInt(event.target.errorType.value) < 0) {
+      window.alert("El tipo de error debe ser positivo");
+      return;
+    }
+    
+
+
     setTol(parseFloat(event.target.tol.value));
     setnormValue(parseInt(event.target.normValue.value));
     setWValue(parseFloat(event.target.wValue && event.target.wValue.value));
