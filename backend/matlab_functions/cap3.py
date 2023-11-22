@@ -16,7 +16,7 @@ def calcular_newton(x, y):
     x = np.array(x)
     y = np.array(y)
 
-    coef_polinomio,matriz = eng.newtonint(x,y,nargout = 2)
+    matriz, coef_polinomio = eng.newtonint(x,y,nargout = 2)
     response = formatter.newton_interpol_formatter(coef_polinomio, matriz)
     return response
 

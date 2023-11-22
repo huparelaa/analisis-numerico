@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SetOfPointsInput from "../../Home/SetOfPointsInput";
 import {
   TableStyle,
-  MediaContainer,  
+  MediaContainer,
   Button,
   Error,
   LinkGraph,
@@ -23,10 +23,12 @@ import renderLatexPolynom from "../../utils/LaTeX/renderLatexPolynom";
 import polynomFromArray from "../../utils/polynomFromArray";
 import { Navbar } from "../../Home/Header";
 import { column, format, parse } from "mathjs";
+import { url } from "../../config";
+import axios from "axios";
 
 const SplineLineal = ({ name }) => {
   const [points, setPoints] = useState({
-    x: [-1, 0, 2, 4,5],
+    x: [-1, 0, 2, 4, 5],
     y: [4.3, 5.53, 8, 11.25],
   });
   const [methodState, setMethodState] = useState({
@@ -39,189 +41,183 @@ const SplineLineal = ({ name }) => {
       " \\hline\n" +
       "y & 23 & 13 & 5 & -1 & -5\\\\ \n" +
       " \\hline\n" +
-      "\\end{array}",
+      "\\end{array}"
   );
   const [error, setError] = useState(null);
   const [results, setResults] = useState(undefined);
   const [displayHelp, setDisplayHelp] = useState(false);
-  const [data, setData] = useState(null)
-  const [x, setX] = useState("[0,1,2,3]")
-  const [y, setY] = useState("[4,2,6,8]")
-  const [tabla,setTabla] = useState([[]])
-  const [traz,setTraz] = useState([[]])
-  const handleSubmit = async event => {
-    console.log("x: ",event.target.x.value)
-    console.log("y: ",event.target.y.value)
+  const [data, setData] = useState(null);
+  const [x, setX] = useState("[0,1,2,3]");
+  const [y, setY] = useState("[4,2,6,8]");
+  const [tabla, setTabla] = useState([[]]);
+  const [traz, setTraz] = useState([[]]);
+  const [trazModificado, setTrazModificado] = useState([[]]);
+  const [xPoints, setXPoints] = useState([]);
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    try{
-        setX(event.target.x.value);
-        setY(event.target.y.value);
-        const data = {
-            "x": JSON.parse(event.target.x.value),
-            "y": JSON.parse(event.target.y.value)
-        }
-        console.log("data", data);
-        const res = await fetch("http://127.0.0.1:8000/api/interpolation/calcular_spline_lineal/", 
-        {
-            method: "POST", 
-            mode: "cors", 
-            cache: "no-cache",
-            credentials: "same-origin", 
-            headers: {
-                "Content-Type": "application/json",
-            },
-            redirect: "follow", 
-            referrerPolicy: "no-referrer", 
-            body: JSON.stringify(data),
-        }
-        ).then(response => response.json()).then(
-            data => {
-                setData(data); 
-                console.log("Data: ",data)
-                setTabla(data["tabla"])
-                console.log("Tabla de coeficientes: ",tabla)
-                setTraz(data["trazadores"])
-                console.log("trazadores: ",traz)
-            });
-    }
-    catch (e){
-        setError(e + "");
-    }
+    try {
+      setX(event.target.x.value);
+      setY(event.target.y.value);
+      setXPoints(JSON.parse(event.target.x.value));
+      const data = {
+        x: JSON.parse(event.target.x.value),
+        y: JSON.parse(event.target.y.value),
+        tipo: 1,
+      };
 
-
+      try {
+        const response = await axios.post(`${url}/interpolation/spline`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const responseData = response.data;
+        setData(responseData);
+        setTraz(responseData["trazadores"]);
+        setTabla(responseData["tabla"]);
+        setTrazModificado(
+          responseData["trazadores"].map((trazador) => {
+            return encodeURIComponent(trazador);
+          })
+        );
+      } catch (e) {
+        setError(e.toString());
+      }
+    } catch (e) {
+      setError(e + "");
+    }
   };
-
 
   return (
     <>
-    <Navbar/>
-    <MediaContainer width={"1100px"} className="mt-20">
+      <Navbar />
+      <MediaContainer width={"1100px"} className="mt-20">
         <Parameters width={"1100px"}>
-                <p className="mb-3">
-        <a className="text-alert-text">
-       <strong> Los puntos de X y Y los debes de poner dentro de corchetes ('[]'), se separan
-        por comas (',') y puedes poner numeros decimales con el punto ('.').
-        Recuerda que debe haber la misma cantidad de puntos para X y Y
-        </strong>
-        </a>
-      </p>
-    <form onSubmit={handleSubmit}>
-    <label>
-        Valores de x
-        <input type="text" name="x" defaultValue={x} style={{
-                                border: '1px solid #000',
-                                borderRadius: '20px',
-                                width: '150px',
-                                height: '35px',
-                            }}/>
-    </label>
-    <label>
-        Valores de y
-        <input type="text" name="y" defaultValue={y} style={{
-                                border: '1px solid #000',
-                                borderRadius: '20px',
-                                width: '150px',
-                                height: '35px',
-                            }}/>
-    </label>
-    <Button>Spline Lineal</Button>
-    </form>
-    </Parameters>
-    
-    </MediaContainer>
-    {data && !error ?(
-    <Results>
-
-    <React.Fragment>
-              <strong> <p>Tabla de coeficientes</p> </strong>
-              <TableStyle>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>
-                          i
-                        </th>
-                        <th>
-                          Coeficientes 1
-                        </th>
-                        <th>
-                          Coeficientes 2
-                        </th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {tabla.map((Lx, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{index}</td>
-                            {Lx.map(coeff => {
-                              return <td>{coeff}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </TableStyle>
-                <strong> <p>Trazadores</p> </strong>
-              <TableStyle>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>
-                          i
-                        </th>
-                        <th>
-                         Trazadores
-                        </th>
-
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {traz.map((Lx, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{index}</td>
-                            <td>{Lx}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </TableStyle>
-
-                      <LinkGraph>
-                <a
-                  href={
-                    "/graficar?function=" +
-                    encodeURIComponent("")
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Graficar 
-                </a>
-              </LinkGraph>
- 
-     </React.Fragment>         
-    
-    
-    </Results>
-    ):(
+          <p className="mb-3">
+            <a className="text-alert-text">
+              <strong>
+                {" "}
+                Los puntos de X y Y los debes de poner dentro de corchetes
+                ('[]'), se separan por comas (',') y puedes poner numeros
+                decimales con el punto ('.'). Recuerda que debe haber la misma
+                cantidad de puntos para X y Y
+              </strong>
+            </a>
+          </p>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Valores de x
+              <input
+                type="text"
+                name="x"
+                defaultValue={x}
+                style={{
+                  border: "1px solid #000",
+                  borderRadius: "20px",
+                  width: "150px",
+                  height: "35px",
+                }}
+              />
+            </label>
+            <label>
+              Valores de y
+              <input
+                type="text"
+                name="y"
+                defaultValue={y}
+                style={{
+                  border: "1px solid #000",
+                  borderRadius: "20px",
+                  width: "150px",
+                  height: "35px",
+                }}
+              />
+            </label>
+            <Button>Spline Lineal</Button>
+          </form>
+        </Parameters>
+      </MediaContainer>
+      {data && !error ? (
         <Results>
-        <Error>{error}</Error>
-        <Link to={"/help"}>
+          <React.Fragment>
+            <strong>
+              {" "}
+              <p>Tabla de coeficientes</p>{" "}
+            </strong>
+            <TableStyle>
+              <table>
+                <thead>
+                  <tr>
+                    <th>i</th>
+                    <th>Coeficientes 1</th>
+                    <th>Coeficientes 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tabla.map((Lx, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index}</td>
+                        {Lx.map((coeff) => {
+                          return <td>{coeff}</td>;
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableStyle>
+            <strong>
+              {" "}
+              <p>Trazadores</p>{" "}
+            </strong>
+            <TableStyle>
+              <table>
+                <thead>
+                  <tr>
+                    <th>i</th>
+                    <th>Trazadores</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {traz.map((Lx, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index}</td>
+                        <td>{Lx}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </TableStyle>
+
+            <LinkGraph>
+              <a
+                href={
+                  "/graf-spline?trazadores=" +
+                  trazModificado +
+                  "&xPoints=" +
+                  xPoints
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Graficar
+              </a>
+            </LinkGraph>
+          </React.Fragment>
+        </Results>
+      ) : (
+        <Results>
+          <Error>{error}</Error>
+          <Link to={"/help"}>
             <FontAwesomeIcon icon={"question-circle"} /> Help Page
-        </Link>
-    </Results>
-    )
-  }
+          </Link>
+        </Results>
+      )}
     </>
-
   );
+};
 
-  };
-
-export { SplineLineal } 
+export { SplineLineal };

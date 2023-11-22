@@ -66,6 +66,7 @@ function Graph() {
               color: "#358180",
               sampler: "builtIn",
               graphType: "polyline",
+              range: [0, 5],
             },
           ],
           grid: grid,

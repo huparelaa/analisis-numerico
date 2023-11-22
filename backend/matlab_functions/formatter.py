@@ -254,7 +254,7 @@ def metodos_iterativos_formatter(iter, x, mt, mc, radioEspectral, error, mes, me
     return response
 
 
-def vandermonde_formatter():
+def vandermonde_formatter(coeficientes, matriz):
     coeficientes = np.array(coeficientes).tolist()
 
     matriz = np.array(matriz).tolist()

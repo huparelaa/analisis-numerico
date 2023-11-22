@@ -66,10 +66,14 @@ Y listo, ya tienes el frontend corriendo en tu computador, si accedes a la url [
 ✅ Métodos iterativos
 
 ### Métodos de interpolación:
-❌ Vandermonde
+✅ Vandermonde
 
-❌ Lagrange
+✅ Lagrange
 
-❌ Newton
+✅ Newton
 
-❌ Spline
+🚧 Spline lineal (In progress)
+
+❌ Spline cuadrático
+
+❌ Spline cúbico

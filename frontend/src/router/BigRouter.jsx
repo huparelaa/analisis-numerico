@@ -5,6 +5,7 @@ import { HomeNonLinear } from "../NonLinear/HomeNonLinear";
 import { HomeLinear } from "../Linear/HomeLinear";
 import { HomeInterpolation } from "../interpolation/HomeInterpolation";
 import { Graph } from "../Home/Graph";
+import { GraphSpline } from '../Home/GraphSpline'
 import { Biseccion } from "../NonLinear/Metodos/Biseccion";
 import { PuntoFijo } from "../NonLinear/Metodos/PuntoFijo";
 import { RegulaFalsi } from "../NonLinear/Metodos/RegulaFalsi";
@@ -26,6 +27,7 @@ const BigRouter = () => {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/graficar" element={<Graph/>}/>
+        <Route path="/graf-spline" element={<GraphSpline/>}/>
         <Route path="/ecuaciones-no-lineales" element={<HomeNonLinear/>} />        
         <Route path="/ecuaciones-lineales" element={<HomeLinear/>} />
         <Route path="/interpolacion" element={<HomeInterpolation/>} />
