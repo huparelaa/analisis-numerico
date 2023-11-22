@@ -87,7 +87,6 @@ function Graph() {
 
   return (
     <div >
-      <Navbar />
       <div className="texto">
       <MediaContainer width={"1050px"}>
         <Parameters width={"1050px"}>
