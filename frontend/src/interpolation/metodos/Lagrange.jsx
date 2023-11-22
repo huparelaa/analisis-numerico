@@ -172,9 +172,7 @@ const Lagrange = ({ name }) => {
       ) : (
         <Results>
           <Error>{error}</Error>
-          <Link to={"/help"}>
-            <FontAwesomeIcon icon={"question-circle"} /> Help Page
-          </Link>
+         
         </Results>
       )}
     </>

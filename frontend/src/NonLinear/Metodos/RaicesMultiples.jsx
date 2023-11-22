@@ -295,12 +295,12 @@ const RaicesMultiples = ({ name }) => {
       {displayHelp && (
         <React.Fragment>
           <p>
-            The convergence decreases or stops if there is any division by zero.
+            La convergencia disminuye o se detiene si hay alguna división por cero.
           </p>
           <p>Las derivadas las obtiene el sistema :)</p>
-          <p>The function must be continuous and differentiable.</p>
-          <p>Tolerance must have a positive value.</p>
-          <p>The iteration number must be positive.</p>
+          <p>La función debe ser continua y diferenciable.</p>
+          <p>La tolerancia debe tener un valor positivo.</p>
+          <p>El número de iteración debe ser positivo.</p>
         </React.Fragment>
       )}
     </>

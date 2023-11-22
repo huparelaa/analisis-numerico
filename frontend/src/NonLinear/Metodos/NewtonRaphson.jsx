@@ -262,14 +262,14 @@ const NewtonRaphson = ({ name }) => {
       {displayHelp && (
         <React.Fragment>
           <p>
-            Newton's method is generally faster than the other methods. If the
-            derivative approaches zero, the method loses its speed because is
-            possible to be a case of multiple root.
+            El método de Newton es generalmente más rápido que los otros métodos. Si el
+            derivada se acerca a cero, el método pierde su velocidad porque es
+            Es posible que se trate de un caso de raíz múltiple.
           </p>
-          <p>Be sure that the function have a root.</p>
-          <p>The initial value is very very important.</p>
-          <p>Tolerance must have a positive value.</p>
-          <p>The iteration number must be positive.</p>
+          <p>Asegúrese de que la función tenga una raíz.</p>
+          <p>El valor inicial es muy, muy importante.</p>
+          <p>La tolerancia debe tener un valor positivo.</p>
+          <p>El número de iteración debe ser positivo.</p>
         </React.Fragment>
       )}
     </>
