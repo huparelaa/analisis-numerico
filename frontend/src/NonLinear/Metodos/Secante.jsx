@@ -75,6 +75,7 @@ const Secante = ({ name }) => {
         x1: parseFloat(event.target.initialValueX1.value),
         niter: parseInt(event.target.maxCount.value),
         tol: parseFloat(event.target.tol.value),
+        tipErr: parseInt(event.target.errorType.value),
       };
       try {
         setLoading(true);

@@ -79,9 +79,17 @@ function [iter, an, xn, bn, fn, E, mes, err] = rf(f,a, b, max_iter, tol, tipErr)
             fa = fm;
         end
         temp = m;
+        if fb - fa == 0
+            err = 'La función es constante en el intervalo';
+            return
+        end        
         m =  b - (fb * (b - a)) / (fb - fa);
         fm = eval(subs(f_sym, m)); 
-        numberError = abs(m - temp);
+        if tipErr == 1 %Error absoluto
+            numberError = abs(m - temp);
+        elseif tipErr == 0 %Error relativo
+            numberError = abs((m - temp) / m);
+        end
         iter = iter + 1;
     end
     an(iter) = a;

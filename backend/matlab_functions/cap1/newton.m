@@ -57,7 +57,11 @@ function [n,xn,fm,dfm,E, mes, err] = newton(f, x0,tol,max_iter,tipErr)
             err = 'El punto evaludo en la derivada no puede ser 0';
             return
         end
-        E(c+2)=abs(xn(c+2)-x0);
+        if tipErr == 1 % Error absoluto
+            E(c+2)=abs(xn(c+2)-x0);
+        elseif tipErr == 0 % Error relativo
+            E(c+2)=abs((xn(c+2)-x0)/xn(c+2));
+        end
         error=E(c+2);
         x0=xn(c+2);
         N(c+2)=c+1;

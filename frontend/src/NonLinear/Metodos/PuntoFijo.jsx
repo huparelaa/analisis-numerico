@@ -68,6 +68,7 @@ const PuntoFijo = ({ name }) => {
         x0: parseFloat(event.target.initialValue.value),
         niter: parseInt(event.target.maxCount.value),
         tol: parseFloat(event.target.tol.value),
+        tipErr: parseInt(event.target.errorType.value),
       };
 
       try {

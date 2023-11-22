@@ -67,7 +67,11 @@ function [iter,xn,fn, E, mes, err] = secante(f, x0, x1, tol, max_iter, tipErr)
             iter = iter + 1;
             xn(iter) = x2;
             fn(iter) = f2;
-            E(iter) = abs(x2 - x1);
+            if tipErr == 1 % Error absoluto
+                E(iter) = abs(x2 - x1);
+            elseif tipErr == 0 % Error relativo
+                E(iter) = abs((x2 - x1) / x2);
+            end
         else
             mes = "El denominador es 0. El método no puede continuar. La última aproximación fue " + num2str(xn(end)) ;
             return 

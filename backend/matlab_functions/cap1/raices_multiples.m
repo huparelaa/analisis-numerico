@@ -39,6 +39,10 @@ function [c,xn,fm,dfm,d2fm,E, mes, err] = raices_multiples(f, x0,tol,max_iter,ti
 
     d = dfe^2 - fe * d2fe;
     while error > tol && d ~= 0 && c < max_iter 
+        if d == 0
+            err = "División por cero en la iteración: " + num2str(c);
+            return
+        end
         xn(c+2) = x0 - ((fe * dfe) / (dfe^2 - (fe * d2fe)));
         if xn(c+2) == inf
             err = "Valor infinito en la iteración: " + num2str(c);
@@ -50,7 +54,11 @@ function [c,xn,fm,dfm,d2fm,E, mes, err] = raices_multiples(f, x0,tol,max_iter,ti
         dfe=dfm(c+2);
         d2fm(c+2)=eval(subs(df2,xn(c+2)));
         d2fe=d2fm(c+2);
-        E(c+2)=abs(xn(c+2)-x0);
+        if tipErr == 1 % Error absoluto
+            E(c+2) = abs((xn(c+2) - x0));
+        else % Error relativo
+            E(c+2) = abs((xn(c+2) - x0)) / xn(c+2);
+        end
         error=E(c+2);
         if imag(fe)
             err = "xi no está definido en el dominio de la función: " + num2str(xn(c+2));

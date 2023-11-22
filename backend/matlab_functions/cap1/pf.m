@@ -45,7 +45,11 @@ function [c , xn, fm, gm, E, mes, err] = pf(f, g, x0, tol, max_iter, tipErr)
         fm(c+1) = eval(subs(f_sym, x, xn(c+1)));
         gm(c+1) = eval(subs(g_sym, x, xn(c+1)));
         fe=fm(c+1);
-        E(c+1) = abs((xn(c+1) - x0));
+        if tipErr == 1 % Error absoluto
+            E(c+1) = abs((xn(c+1) - x0));
+        else % Error relativo
+            E(c+1) = abs((xn(c+1) - x0) / xn(c+1));
+        end
         error = E(c+1);
         x0 = xn(c+1);
         c = c+1;

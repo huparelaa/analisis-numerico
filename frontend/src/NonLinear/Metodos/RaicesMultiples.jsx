@@ -19,7 +19,7 @@ import axios from "axios";
 import { url } from "../../config";
 
 const RaicesMultiples = ({ name }) => {
-  const [functionText, setFunctionText] = useState("exp(x) - x - 1");
+  const [functionText, setFunctionText] = useState("log(sin(x)^2 + 1)-(1/2)");
   const [initialValueX0, setInitialValueX0] = useState(0.5);
   const [displayHelp, setDisplayHelp] = useState(false);
   const [tol, setTol] = useState(1e-7);
@@ -68,6 +68,7 @@ const RaicesMultiples = ({ name }) => {
         x0: parseFloat(event.target.initialValueX0.value),
         niter: parseInt(event.target.maxCount.value),
         tol: parseFloat(event.target.tol.value),
+        tipErr: parseInt(event.target.errorType.value),
       };
       try {
         setLoading(true);
@@ -97,7 +98,6 @@ const RaicesMultiples = ({ name }) => {
     }
     setLoading(false);
   };
-
   return (
     <>
       <Navbar />
